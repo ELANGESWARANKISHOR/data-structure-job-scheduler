@@ -5,6 +5,11 @@ public class Job {
     private int arrivalTime;
     private int burstTime;
 
+    private int startTime;
+    private int completionTime;
+    private int waitingTime;
+    private int turnaroundTime;
+    private int responseTime;
     
     public Job(String id, int priority, int arrivalTime, int burstTime) {
         this.id = id;
@@ -37,6 +42,37 @@ public class Job {
         this.burstTime = burstTime;
     }
 
+    
+    public int getStartTime() {
+        return startTime;
+    }
+    public int getCompletionTime() {
+        return completionTime;
+    }
+    public int getWaitingTime() {
+        return waitingTime;
+    }
+    public int getTurnaroundTime() {
+        return turnaroundTime;
+    }
+    public int getResponseTime() {
+        return responseTime;
+    }
+    public void setStartTime(int startTime) {
+        this.startTime = startTime;
+    }
+    public void setCompletionTime(int completionTime) {
+        this.completionTime = completionTime;
+    }
+    public void setWaitingTime(int waitingTime) {
+        this.waitingTime = waitingTime;
+    }
+    public void setTurnaroundTime(int turnaroundTime) {
+        this.turnaroundTime = turnaroundTime;
+    }
+    public void setResponseTime(int responseTime) {
+        this.responseTime = responseTime;
+    }
     public void display() {
         System.out.println(
             "Job ID: " + id +

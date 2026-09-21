@@ -15,6 +15,8 @@ public class FCFSScheduler {
                 currentTime = job.getArrivalTime();
             }
 
+            job.setStartTime(currentTime);
+
             System.out.println(
                 "Time " + currentTime +
                 " -> Starting " + job.getId()
@@ -22,6 +24,21 @@ public class FCFSScheduler {
 
             // Simulate execution
             currentTime = currentTime + job.getBurstTime();
+
+            job.setCompletionTime(currentTime);
+
+            int waitingTime =
+                job.getStartTime() - job.getArrivalTime();
+
+            int turnaroundTime =
+                job.getCompletionTime() - job.getArrivalTime();
+
+            int responseTime =
+                job.getStartTime() - job.getArrivalTime();
+
+            job.setWaitingTime(waitingTime);
+            job.setTurnaroundTime(turnaroundTime);
+            job.setResponseTime(responseTime);
 
             System.out.println(
                 "Time " + currentTime +
