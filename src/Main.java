@@ -6,6 +6,8 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println("=== Job Scheduling System ===");
+
         System.out.print("Enter number of jobs: ");
         int numberOfJobs = scanner.nextInt();
 
@@ -44,19 +46,51 @@ public class Main {
             job.display();
         }
 
-        // Add sorted jobs to the queue
-        MyQueue queue = new MyQueue();
+        // Scheduling menu
+        System.out.println("\n=== Select Scheduling Algorithm ===");
+        System.out.println("1. FCFS");
+        System.out.println("2. Priority Scheduling");
+        System.out.print("Enter your choice: ");
 
-        for (Job job : jobs) {
-            queue.enqueue(job);
+        int choice = scanner.nextInt();
+
+        if (choice == 1) {
+
+            MyQueue queue = new MyQueue();
+
+            for (Job job : jobs) {
+                queue.enqueue(job);
+            }
+
+            FCFSScheduler scheduler = new FCFSScheduler();
+
+            scheduler.schedule(queue);
+
+            displayResults(jobs);
+
+        } else if (choice == 2) {
+
+            PriorityScheduler scheduler = new PriorityScheduler();
+
+            scheduler.schedule(jobs);
+
+            displayResults(jobs);
+
+        } else {
+
+            System.out.println("Invalid choice.");
         }
 
-        // Run FCFS
-        FCFSScheduler scheduler = new FCFSScheduler();
+        scanner.close();
+    }
 
-        scheduler.schedule(queue);
+    public static void displayResults(Job[] jobs) {
 
-        System.out.println("\n=== FCFS Results ===");
+        System.out.println("\n=== Scheduling Results ===");
+
+        double totalWaitingTime = 0;
+        double totalTurnaroundTime = 0;
+        double totalResponseTime = 0;
 
         for (Job job : jobs) {
 
@@ -64,51 +98,36 @@ public class Main {
                 "Job " + job.getId() +
                 " | Arrival: " + job.getArrivalTime() +
                 " | Burst: " + job.getBurstTime() +
+                " | Priority: " + job.getPriority() +
                 " | Start: " + job.getStartTime() +
                 " | Completion: " + job.getCompletionTime() +
                 " | Waiting: " + job.getWaitingTime() +
                 " | Turnaround: " + job.getTurnaroundTime() +
                 " | Response: " + job.getResponseTime()
             );
-        }
 
-        double totalWaitingTime = 0;
-        double totalTurnaroundTime = 0;
-        double totalResponseTime = 0;
-
-        for (Job job : jobs) {
             totalWaitingTime += job.getWaitingTime();
             totalTurnaroundTime += job.getTurnaroundTime();
             totalResponseTime += job.getResponseTime();
-    }
+        }
 
-        double averageWaitingTime =
-            totalWaitingTime / numberOfJobs;
-
-        double averageTurnaroundTime =
-            totalTurnaroundTime / numberOfJobs;
-
-        double averageResponseTime =
-            totalResponseTime / numberOfJobs;
+        int numberOfJobs = jobs.length;
 
         System.out.println("\n=== Average Metrics ===");
 
         System.out.printf(
             "Average Waiting Time: %.2f%n",
-            averageWaitingTime
+            totalWaitingTime / numberOfJobs
         );
 
         System.out.printf(
             "Average Turnaround Time: %.2f%n",
-            averageTurnaroundTime
+            totalTurnaroundTime / numberOfJobs
         );
 
         System.out.printf(
             "Average Response Time: %.2f%n",
-        averageResponseTime
+            totalResponseTime / numberOfJobs
         );
-        scanner.close();
-
-
     }
 }
