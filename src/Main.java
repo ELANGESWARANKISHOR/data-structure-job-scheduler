@@ -50,6 +50,7 @@ public class Main {
         System.out.println("\n=== Select Scheduling Algorithm ===");
         System.out.println("1. FCFS");
         System.out.println("2. Priority Scheduling");
+        System.out.println("3. Shortest Job Scheduling");
         System.out.print("Enter your choice: ");
 
         int choice = scanner.nextInt();
@@ -71,6 +72,14 @@ public class Main {
         } else if (choice == 2) {
 
             PriorityScheduler scheduler = new PriorityScheduler();
+
+            scheduler.schedule(jobs);
+
+            displayResults(jobs);
+
+        } else if (choice == 3) {
+
+            SJFScheduler scheduler = new SJFScheduler();
 
             scheduler.schedule(jobs);
 
