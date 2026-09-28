@@ -50,13 +50,15 @@ public class Main {
         System.out.println("\n=== Select Scheduling Algorithm ===");
         System.out.println("1. FCFS");
         System.out.println("2. Priority Scheduling");
-        System.out.println("3. Shortest Job Scheduling");
-        System.out.print("Enter your choice: ");
+        System.out.println("3. SJF");
+        System.out.println("4. Round Robin");
 
+        System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
 
         if (choice == 1) {
 
+            // FCFS
             MyQueue queue = new MyQueue();
 
             for (Job job : jobs) {
@@ -71,7 +73,9 @@ public class Main {
 
         } else if (choice == 2) {
 
-            PriorityScheduler scheduler = new PriorityScheduler();
+            // Priority Scheduling
+            PriorityScheduler scheduler =
+                new PriorityScheduler();
 
             scheduler.schedule(jobs);
 
@@ -79,11 +83,38 @@ public class Main {
 
         } else if (choice == 3) {
 
-            SJFScheduler scheduler = new SJFScheduler();
+            // SJF
+            SJFScheduler scheduler =
+                new SJFScheduler();
 
             scheduler.schedule(jobs);
 
             displayResults(jobs);
+
+        } else if (choice == 4) {
+
+            // Round Robin
+            System.out.print("Enter time quantum: ");
+            int timeQuantum = scanner.nextInt();
+
+            if (timeQuantum <= 0) {
+
+                System.out.println(
+                    "Time quantum must be greater than 0."
+                );
+
+            } else {
+
+                RoundRobinScheduler scheduler =
+                    new RoundRobinScheduler();
+
+                scheduler.schedule(
+                    jobs,
+                    timeQuantum
+                );
+
+                displayResults(jobs);
+            }
 
         } else {
 
@@ -140,3 +171,4 @@ public class Main {
         );
     }
 }
+
